@@ -128,11 +128,5 @@ describe('demo routes', () => {
 
     expect(res.body).toEqual(post.body);
   });
-  //asdf
-
- 
-
-
-
 
 });
