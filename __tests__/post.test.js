@@ -107,11 +107,11 @@ describe('demo routes', () => {
       });
 
     const res = await agent
-      .patch('/api/v1/posts/:id')
+      .patch('/api/v1/posts/1')
       .send({ caption: 'CAGE' });
 
-    post.caption = 'CAGE';
-    expect(res.body).toEqual(post);
+    post.body.caption = 'CAGE';
+    expect(res.body).toEqual(post.body);
   });
 
  
