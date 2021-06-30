@@ -64,7 +64,7 @@ describe('demo routes', () => {
     
     const res = await agent
       .get('/api/v1/posts');
-
+    console.log(res.body);
     expect(res.body).toEqual(expect.arrayContaining(
       [
         returnedPosts[0].body,
