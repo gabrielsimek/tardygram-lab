@@ -62,7 +62,7 @@ describe('demo routes', () => {
           .send(post);
       })
     );
-    console.log(returnedPosts[0].body);
+    
     
     const res = await agent
       .get('/api/v1/posts');
@@ -94,10 +94,24 @@ describe('demo routes', () => {
         tags: ['nick cage', 'national treasure'],
         username: 'MrKitty',
         profilePhotoUrl: 'http://placekitten.com/200/300'
-        
       }
     );
+  });
+  it.only('patches a user by id', async () => {
+    const post = await agent
+      .post('/api/v1/posts')
+      .send({
+        photoUrl: 'https://www.placecage.com/200/300',
+        caption: 'cage',
+        tags: ['nick cage', 'national treasure']
+      });
 
+    const res = await agent
+      .patch('/api/v1/posts/:id')
+      .send({ caption: 'CAGE' });
+
+    post.caption = 'CAGE';
+    expect(res.body).toEqual(post);
   });
 
  
