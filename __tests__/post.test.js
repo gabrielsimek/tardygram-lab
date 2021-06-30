@@ -97,7 +97,7 @@ describe('demo routes', () => {
       }
     );
   });
-  it.only('patches a user by id', async () => {
+  it('patches a user by id', async () => {
     const post = await agent
       .post('/api/v1/posts')
       .send({
@@ -111,6 +111,21 @@ describe('demo routes', () => {
       .send({ caption: 'CAGE' });
 
     post.body.caption = 'CAGE';
+    expect(res.body).toEqual(post.body);
+  });
+
+  it('deletes a post by id', async () => {
+    const post = await agent
+      .post('/api/v1/posts')
+      .send({
+        photoUrl: 'https://www.placecage.com/200/300',
+        caption: 'cage',
+        tags: ['nick cage', 'national treasure']
+      });
+
+    const res = await agent
+      .delete('/api/v1/posts/1');
+
     expect(res.body).toEqual(post.body);
   });
 
