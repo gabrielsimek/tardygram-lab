@@ -8,7 +8,7 @@ describe('demo routes', () => {
     return setup(pool);
   });
   //should hash password and authorize user
-  it.only('creates a user and signs them up', async () => {
+  it('creates a user and signs them up', async () => {
     const res = await request(app)
       .post('/api/v1/auth/signup')
       .send({
