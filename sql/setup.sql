@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS users CASCADE;
+
+CREATE TABLE users (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    username: TEXT NON NULL UNIQUE,
+    profile_Photo_url: TEXT,
+    password_hash: TEXT NOT NULL
+)
