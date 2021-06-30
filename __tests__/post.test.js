@@ -36,7 +36,8 @@ describe('demo routes', () => {
       }
     );
   });
-  it.only('gets a list of all posts', async () => {
+
+  it('gets a list of all posts', async () => {
     const posts = [{
       photoUrl: 'https://www.kitten.com/200/300',
       caption: 'kitten',
@@ -64,7 +65,6 @@ describe('demo routes', () => {
     
     const res = await agent
       .get('/api/v1/posts');
-    console.log(res.body);
     expect(res.body).toEqual(expect.arrayContaining(
       [
         returnedPosts[0].body,
@@ -73,4 +73,35 @@ describe('demo routes', () => {
       ]
     ));
   });
+
+  it('gets a post by id', async () => {
+    const post = await agent
+      .post('/api/v1/posts')
+      .send({
+        photoUrl: 'https://www.placecage.com/200/300',
+        caption: 'cage',
+        tags: ['nick cage', 'national treasure']
+      });
+
+    const res = await agent
+      .get('/api/v1/posts/1');
+    
+    expect(res.body).toEqual(
+      {  id: '1',
+        userId: '1',
+        username: 'MrKitty',
+        profilePhotoUrl: 'http://placekitten.com/200/300',
+        photoUrl: 'https://www.placecage.com/200/300',
+        caption: 'cage',
+        tags: ['nick cage', 'national treasure']
+      }
+    );
+
+  });
+
+ 
+
+
+
+
 });
