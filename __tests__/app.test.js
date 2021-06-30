@@ -3,7 +3,7 @@ import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
 //using before all!
-describe('demo routes', () => {
+describe.skip('demo routes', () => {
   beforeAll(() => {
     return setup(pool);
   });
@@ -16,7 +16,6 @@ describe('demo routes', () => {
         profilePhotoUrl: 'http://placekitten.com/200/300',
         password: 'password'
       });
-    console.log(res.cookies);
     expect(res.body).toEqual({
       id: '1',
       username: 'MrKitty',
