@@ -8,7 +8,7 @@ describe('demo routes', () => {
     return setup(pool);
   });
   //should hash password and authorize user
-  it('creates a user and signs them up', async () => {
+  it.only('creates a user and signs them up', async () => {
     const res = await request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -16,7 +16,7 @@ describe('demo routes', () => {
         profilePhotoUrl: 'http://placekitten.com/200/300',
         password: 'password'
       });
-
+    // console.log(res.headers);
     expect(res.body).toEqual({
       id: '1',
       username: 'MrKitty',
