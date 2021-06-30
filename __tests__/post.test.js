@@ -62,6 +62,7 @@ describe('demo routes', () => {
           .send(post);
       })
     );
+    console.log(returnedPosts[0].body);
     
     const res = await agent
       .get('/api/v1/posts');
@@ -75,7 +76,7 @@ describe('demo routes', () => {
   });
 
   it('gets a post by id', async () => {
-    const post = await agent
+    await agent
       .post('/api/v1/posts')
       .send({
         photoUrl: 'https://www.placecage.com/200/300',
@@ -88,12 +89,12 @@ describe('demo routes', () => {
     
     expect(res.body).toEqual(
       {  id: '1',
-        userId: '1',
-        username: 'MrKitty',
-        profilePhotoUrl: 'http://placekitten.com/200/300',
         photoUrl: 'https://www.placecage.com/200/300',
         caption: 'cage',
-        tags: ['nick cage', 'national treasure']
+        tags: ['nick cage', 'national treasure'],
+        username: 'MrKitty',
+        profilePhotoUrl: 'http://placekitten.com/200/300'
+        
       }
     );
 
