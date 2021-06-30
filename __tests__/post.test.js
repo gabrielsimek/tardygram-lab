@@ -3,7 +3,7 @@ import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
 const agent = request.agent(app);
-describe('demo routes', () => {
+describe.skip('demo routes', () => {
   beforeEach(async()  => {
     await setup(pool);
     await agent
