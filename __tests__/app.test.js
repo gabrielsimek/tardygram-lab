@@ -16,7 +16,7 @@ describe('demo routes', () => {
         profilePhotoUrl: 'http://placekitten.com/200/300',
         password: 'password'
       });
-    // console.log(res.headers);
+    console.log(res.cookies);
     expect(res.body).toEqual({
       id: '1',
       username: 'MrKitty',
