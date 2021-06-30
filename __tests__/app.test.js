@@ -2,9 +2,9 @@ import pool from '../lib/utils/pool.js';
 import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
-
+//using before all!
 describe('demo routes', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     return setup(pool);
   });
   //should hash password and authorize user
@@ -22,7 +22,20 @@ describe('demo routes', () => {
       username: 'MrKitty',
       profilePhotoUrl: 'http://placekitten.com/200/300'
     });
+  });
 
+  it('signs in and validates a user', async () => {
+    const res = await request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        username: 'MrKitty',
+        password: 'password'
+      });
 
+    expect(res.body).toEqual({
+      id: '1',
+      username: 'MrKitty',
+      profilePhotoUrl: 'http://placekitten.com/200/300'
+    });
   });
 });
