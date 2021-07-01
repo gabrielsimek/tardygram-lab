@@ -161,7 +161,8 @@ describe('demo routes', () => {
 
     expect(res.body).toEqual(post.body);
   });
-  it.only('gets the most popular posts', async () => {
+  it('gets the most popular posts', async () => {
+    //create posts dynamically 
     const postsToPost = [];
     for(let i = 1; i <= 15; i++){
       postsToPost.push(
@@ -181,6 +182,7 @@ describe('demo routes', () => {
       })
     );
 
+    //create comments dynamically, assigning them randomly to ten of the posts
     const commentsToComment = [];
     for(let i = 0; i < 30; i++){
       const randomNum = Math.ceil(Math.random() * 10);
@@ -216,13 +218,74 @@ describe('demo routes', () => {
     const res = await agent
       .get('/api/v1/posts/popular');
 
-  
-
- 
-
-
     expect(res.body).toEqual(rows);
-  
+
+    //Expected Data Structure
+    // [
+    //   {
+    //     caption: 'post # 12',
+    //     photourl: 'https://www.something.com/12',
+    //     tags: [ 'tag', 'random tag 12' ],
+    //     user_id: '1',
+    //     comments: '5'
+    //   },
+    //   {
+    //     caption: 'post # 14',
+    //     photourl: 'https://www.something.com/14',
+    //     tags: [ 'tag', 'random tag 14' ],
+    //     user_id: '1',
+    //     comments: '5'
+    //   },
+    //   {
+    //     caption: 'post # 1',
+    //     photourl: 'https://www.something.com/1',
+    //     tags: [ 'tag', 'random tag 1' ],
+    //     user_id: '1',
+    //     comments: '4'
+    //   },
+    //   {
+    //     caption: 'post # 10',
+    //     photourl: 'https://www.something.com/10',
+    //     tags: [ 'tag', 'random tag 10' ],
+    //     user_id: '1',
+    //     comments: '4'
+    //   },
+    //   {
+    //     caption: 'post # 3',
+    //     photourl: 'https://www.something.com/3',
+    //     tags: [ 'tag', 'random tag 3' ],
+    //     user_id: '1',
+    //     comments: '3'
+    //   },
+    //   {
+    //     caption: 'post # 13',
+    //     photourl: 'https://www.something.com/13',
+    //     tags: [ 'tag', 'random tag 13' ],
+    //     user_id: '1',
+    //     comments: '3'
+    //   },
+    //   {
+    //     caption: 'post # 2',
+    //     photourl: 'https://www.something.com/2',
+    //     tags: [ 'tag', 'random tag 2' ],
+    //     user_id: '1',
+    //     comments: '3'
+    //   },
+    //   {
+    //     caption: 'post # 15',
+    //     photourl: 'https://www.something.com/15',
+    //     tags: [ 'tag', 'random tag 15' ],
+    //     user_id: '1',
+    //     comments: '2'
+    //   },
+    //   {
+    //     caption: 'post # 11',
+    //     photourl: 'https://www.something.com/11',
+    //     tags: [ 'tag', 'random tag 11' ],
+    //     user_id: '1',
+    //     comments: '1'
+    //   }
+    // ]
   });
 
 });
