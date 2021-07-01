@@ -3,13 +3,13 @@ import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
 const agent = request.agent(app);
-describe('demo routes', () => {
+describe.skip('demo routes', () => {
   beforeAll(async()  => {
     await setup(pool);
   });
   it('creates a comment on a post', async () => {
     //USER 1
-    const userOneResponse = await agent
+    await agent
       .post('/api/v1/auth/signup')
       .send({
         username: 'MrCat',
@@ -17,7 +17,7 @@ describe('demo routes', () => {
         password: 'password'
       });
       
-    const userOne = userOneResponse.body;
+   
     
     //post belongs to user w/ userId 1
     const postResponse = await agent
@@ -72,8 +72,3 @@ describe('demo routes', () => {
   });
 });
 
-// Comments have:
-
-// A reference to a user commentBy
-// A reference to a post post
-// A string comment

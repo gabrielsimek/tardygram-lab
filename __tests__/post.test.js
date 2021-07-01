@@ -161,7 +161,7 @@ describe('demo routes', () => {
 
     expect(res.body).toEqual(post.body);
   });
-  it('gets the most popular posts', async () => {
+  it.only('gets the most popular posts', async () => {
     const postsToPost = [];
     for(let i = 1; i <= 15; i++){
       postsToPost.push(
@@ -172,8 +172,8 @@ describe('demo routes', () => {
         }
       );
     }
-
-    const returnedPosts = await Promise.all(
+    //insert posts into db
+    await Promise.all(
       postsToPost.map(post => {
         return agent
           .post('/api/v1/posts')
@@ -193,8 +193,8 @@ describe('demo routes', () => {
     }
  
     
-
-    const returnedComments = await Promise.all(
+    //insert comments into db
+    await Promise.all(
       commentsToComment.map(comment => {
         return agent
           .post('/api/v1/comments')
@@ -204,13 +204,13 @@ describe('demo routes', () => {
 
     const { rows } = await pool.query(
       `SELECT 
-          caption,
-          COUNT(comments.comment) as comments
-           FROM posts
-          INNER JOIN comments ON comments.post_id = posts.id
-          GROUP BY posts.caption
-          ORDER BY comments DESC
-          LIMIT 10`
+      caption, posts.photo_url as photoUrl, posts.tags, posts.user_id, 
+      COUNT(comments.comment) as comments
+       FROM posts
+      INNER JOIN comments ON comments.post_id = posts.id
+      GROUP BY posts.id
+      ORDER BY comments DESC
+      LIMIT 10`
     );
    
     const res = await agent
