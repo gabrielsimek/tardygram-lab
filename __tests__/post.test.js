@@ -161,7 +161,7 @@ describe('demo routes', () => {
 
     expect(res.body).toEqual(post.body);
   });
-  it.skip('gets the most popular posts', async () => {
+  it('gets the most popular posts', async () => {
     const postsToPost = [];
     for(let i = 1; i <= 15; i++){
       postsToPost.push(
@@ -221,7 +221,7 @@ describe('demo routes', () => {
  
 
 
-    expect(res.body).toEqual({ hello: 'word' });
+    expect(res.body).toEqual(rows);
   
   });
 
