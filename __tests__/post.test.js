@@ -3,7 +3,7 @@ import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
 const agent = request.agent(app);
-describe.skip('demo routes', () => {
+describe('demo routes', () => {
   beforeEach(async()  => {
     await setup(pool);
     await agent
@@ -76,24 +76,45 @@ describe.skip('demo routes', () => {
   });
 
   it('gets a post by id', async () => {
-    await agent
+    const postResponse = await agent
       .post('/api/v1/posts')
       .send({
         photoUrl: 'https://www.placecage.com/200/300',
         caption: 'cage',
         tags: ['nick cage', 'national treasure']
       });
+    const post = postResponse.body;
+
+    const commentOneResponse = await agent
+      .post('/api/v1/comments')
+      .send({
+        postId: post.id,
+        comment: 'Wow cool!'
+      });
+    const commentOne = commentOneResponse.body;
+
+    const commentTwoResponse = await agent
+      .post('/api/v1/comments')
+      .send({
+        postId: post.id,
+        comment: 'so cool!'
+      });
+    const commentTwo = commentTwoResponse.body;
 
     const res = await agent
       .get('/api/v1/posts/1');
-    
+
     expect(res.body).toEqual(
       {  id: '1',
         photoUrl: 'https://www.placecage.com/200/300',
         caption: 'cage',
         tags: ['nick cage', 'national treasure'],
         username: 'MrKitty',
-        profilePhotoUrl: 'http://placekitten.com/200/300'
+        profilePhotoUrl: 'http://placekitten.com/200/300',
+        comments: [
+          { comment: 'so cool!' },
+          { comment: 'Wow cool!' }
+        ]
       }
     );
   });
