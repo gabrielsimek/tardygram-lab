@@ -150,24 +150,12 @@ describe('demo routes', () => {
   });
   it('gets the most popular posts', async () => {
     const postsToPost = [];
-    const commentsToComment = [];
-
     for(let i = 1; i <= 15; i++){
       postsToPost.push(
         {
           photoUrl: `https://www.something.com/${i}`,
           caption: `post # ${i}`,
           tags: ['tag', `random tag ${i}`]
-        }
-      );
-    }
-    
-    for(let i = 0; i < 30; i++){
-      const randomNum = Math.ceil(Math.random() * 15);
-      commentsToComment.push(
-        {
-          postId: `${randomNum}`,
-          comment: `a comment # ${i}`
         }
       );
     }
@@ -179,7 +167,20 @@ describe('demo routes', () => {
           .send(post);
       })
     );
-   
+
+    const commentsToComment = [];
+    for(let i = 0; i < 30; i++){
+      const randomNum = Math.ceil(Math.random() * 10);
+      commentsToComment.push(
+        {
+          postId: `${randomNum}`,
+          comment: `a comment # ${i}`
+        }
+      );
+    }
+
+    
+
     const returnedComments = await Promise.all(
       commentsToComment.map(comment => {
         return agent
@@ -187,6 +188,23 @@ describe('demo routes', () => {
           .send(comment);
       })
     );
+
+    const res = await agent
+      .get('/api/v1/posts/popular');
+
+    const { rows } = await pool.query(
+      `SELECT 
+      caption,
+      COUNT(comments.comment) as comments
+       FROM posts
+      INNER JOIN comments ON comments.post_id = posts.id
+      GROUP BY posts.caption
+      ORDER BY comments DESC
+      LIMIT 10`
+    );
+
+
+    expect(res.body).toEqual(rows);
   
   });
 
