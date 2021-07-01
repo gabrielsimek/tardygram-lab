@@ -17,8 +17,6 @@ describe('demo routes', () => {
   //should hash password and authorize user
   it('creates a post', async () => {
       
-  
-
     const res = await agent
       .post('/api/v1/posts')
       .send({
@@ -26,7 +24,7 @@ describe('demo routes', () => {
         caption: 'cage',
         tags: ['nick cage', 'national treasure']
       });
-    
+     
     expect(res.body).toEqual(
       {  id: '1',
         userId: '1',
@@ -118,6 +116,7 @@ describe('demo routes', () => {
       }
     );
   });
+
   it('patches a user by id', async () => {
     const post = await agent
       .post('/api/v1/posts')
@@ -148,6 +147,47 @@ describe('demo routes', () => {
       .delete('/api/v1/posts/1');
 
     expect(res.body).toEqual(post.body);
+  });
+  it('gets the most popular posts', async () => {
+    const postsToPost = [];
+    const commentsToComment = [];
+
+    for(let i = 1; i <= 15; i++){
+      postsToPost.push(
+        {
+          photoUrl: `https://www.something.com/${i}`,
+          caption: `post # ${i}`,
+          tags: ['tag', `random tag ${i}`]
+        }
+      );
+    }
+    
+    for(let i = 0; i < 30; i++){
+      const randomNum = Math.ceil(Math.random() * 15);
+      commentsToComment.push(
+        {
+          postId: `${randomNum}`,
+          comment: `a comment # ${i}`
+        }
+      );
+    }
+
+    const returnedPosts = await Promise.all(
+      postsToPost.map(post => {
+        return agent
+          .post('/api/v1/posts')
+          .send(post);
+      })
+    );
+   
+    const returnedComments = await Promise.all(
+      commentsToComment.map(comment => {
+        return agent
+          .post('/api/v1/comments')
+          .send(comment);
+      })
+    );
+  
   });
 
 });

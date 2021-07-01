@@ -16,6 +16,7 @@ describe.skip('demo routes', () => {
         profilePhotoUrl: 'http://placekitten.com/200/300',
         password: 'password'
       });
+      
     const userOne = userOneResponse.body;
     
     //post belongs to user w/ userId 1
