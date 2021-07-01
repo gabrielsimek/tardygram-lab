@@ -1,8 +1,8 @@
 SELECT 
-caption,
+caption, posts.photo_url, posts.user_id,
 COUNT(comments.comment) as comments
  FROM posts
 INNER JOIN comments ON comments.post_id = posts.id
-GROUP BY posts.caption
+GROUP BY posts.id
 ORDER BY comments DESC
 LIMIT 10

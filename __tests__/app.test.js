@@ -4,7 +4,7 @@ import request from 'supertest';
 import app from '../lib/app.js';
 
 //using before all!
-describe.skip('demo routes', () => {
+describe('demo routes', () => {
   beforeAll(() => {
     return setup(pool);
   });
