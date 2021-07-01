@@ -112,8 +112,8 @@ describe('demo routes', () => {
         username: 'MrKitty',
         profilePhotoUrl: 'http://placekitten.com/200/300',
         comments: [
-          { comment: 'so cool!' },
-          { comment: 'Wow cool!' }
+          { comment: commentOne.comment },
+          { comment: commentTwo.comment }
         ]
       }
     );

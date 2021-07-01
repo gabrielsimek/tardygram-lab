@@ -7,7 +7,7 @@ describe.skip('demo routes', () => {
   beforeAll(async()  => {
     await setup(pool);
   });
-  it.skip('creates a comment on a post', async () => {
+  it('creates a comment on a post', async () => {
     //USER 1
     const userOneResponse = await agent
       .post('/api/v1/auth/signup')
